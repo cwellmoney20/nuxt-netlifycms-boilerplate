@@ -3,12 +3,10 @@ import info from './content/setup/info'
 import path from 'path'
 import glob from 'glob'
 
-var dynamicRoutes = getDynamicPaths({
-  '/blog': 'blog/*.json',
-  '/page': 'page/*.json',
-});
-
-console.log(dynamicRoutes);
+// var dynamicRoutes = getDynamicPaths({
+//   '/blog': 'blog/*.json',
+//   '/page': 'page/*.json',
+// });
 
 export default {
   mode: 'universal',
@@ -79,7 +77,6 @@ export default {
     },
   },
   generate: {
-    routes: dynamicRoutes
   }
 }
 
@@ -87,13 +84,13 @@ export default {
  * Create an array of URLs from a list of files
  * @param {*} urlFilepathTable
  */
-function getDynamicPaths(urlFilepathTable) {
-  return [].concat(
-    ...Object.keys(urlFilepathTable).map(url => {
-      var filepathGlob = urlFilepathTable[url];
-      return glob
-        .sync(filepathGlob, { cwd: 'content' })
-        .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
-    })
-  );
-}
+// function getDynamicPaths(urlFilepathTable) {
+//   return [].concat(
+//     ...Object.keys(urlFilepathTable).map(url => {
+//       var filepathGlob = urlFilepathTable[url];
+//       return glob
+//         .sync(filepathGlob, { cwd: 'content' })
+//         .map(filepath => `${url}/${path.basename(filepath, '.json')}`);
+//     })
+//   );
+// }
