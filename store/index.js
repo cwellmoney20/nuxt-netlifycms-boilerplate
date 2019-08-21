@@ -4,6 +4,7 @@ Vue.use(Vuex)
 
 export const state = () => ({
   blogPosts: [],
+  cabinets: [],
   allPages: [],
   siteInfo: [],
 });
@@ -11,6 +12,9 @@ export const state = () => ({
 export const mutations = {
   SET_POSTS(state, data) {
     state.blogPosts = data
+  },
+  SET_CABINETS(state, data) {
+    state.cabinets = data
   },
   SET_PAGES(state, data) {
     state.allPages = data
@@ -24,7 +28,18 @@ export const actions = {
   async nuxtServerInit({ dispatch }) {
     await dispatch('getSiteInfo')
     await dispatch('getBlogPosts')
+    await dispatch('getCabinets')
     await dispatch('getPages')
+  },
+  async getCabinets({ state, commit }) {
+    const context = await require.context('~/content/cabinets/', false, /\.json$/);
+
+    const searchposts = await context.keys().map(key => ({
+      ...context(key),
+      _path: `/cabinets/${key.replace('.json', '').replace('./', '')}`
+    }));
+
+    commit('SET_CABINETS', searchposts)
   },
   async getBlogPosts({ state, commit }) {
     const context = await require.context('~/content/blog/', false, /\.json$/);

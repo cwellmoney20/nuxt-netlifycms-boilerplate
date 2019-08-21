@@ -5,24 +5,27 @@
       <p>{{siteInfo.sitedescription}}</p>
     </div>
     <div class="posts-list">
-      <h2 class="posts-list-title">Posts</h2>
-      <p class="post-link" v-for="post in blogPosts"><n-link :to="post._path">{{post.title}}</n-link></p>
+      <h2 class="posts-list-title">cabinets</h2>
+      <p class="post-link" v-for="post in cabinets" :key="post.path">
+        <span>{{ post.title }}</span>
+        <img :src="post.thumbnail" alt="Smiley face" height="42" width="42">
+      </p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    async asyncData({ params, app, payload, route, store }) {
-        let cabinets = await import(`~/content/cabinets`);
-        console.log(cabinets)
-        return {
-            cabinets
-        };
-    },
+    // async asyncData({ params, app, payload, route, store }) {
+    //     let cabinets = await import(`~/content/cabinets${/\.md$/}`);
+    //     console.log(cabinets)
+    //     return {
+    //         cabinets
+    //     };
+    // },
   computed: {
-    blogPosts() {
-      return this.$store.state.blogPosts;
+    cabinets() {
+      return this.$store.state.cabinets;
     },
     siteInfo() {
       return this.$store.state.siteInfo;
